@@ -12,6 +12,7 @@ START_TIME=$(date +%s)
 mongodb_host=mongodb.devopswithsai.online
 redis_host=redis.devopswithsai.online
 mysql_host=mysql.devopswithsai.online
+payment_host=payment.devopswithsai.online
 
 
 mkdir -p $log_folder 
