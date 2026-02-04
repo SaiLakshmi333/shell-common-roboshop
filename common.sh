@@ -75,6 +75,16 @@ mv target/$app_name-1.0.jar $app_name.jar &>> $log_file
 validate $? "clean" 
 }
 
+python_setup(){
+   dnf install python3 gcc python3-devel -y &>>$log_file
+validate $? "installing python" 
+
+cd /app &>>$log_file
+pip3 install -r requirements.txt
+validate $? "install pip3"
+
+}
+
 systemd_setup(){
 cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>> $log_file
 validate $? "copy $app_name service" 
