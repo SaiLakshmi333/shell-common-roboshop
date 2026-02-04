@@ -32,6 +32,6 @@ validate(){
 
 total_time(){
     END_TIME=$(date +%s)
-    total_time = $(($START_TIME-$END_TIME))
+    total_time=$(($START_TIME-$END_TIME))
     echo -e "Script executed  in : $G $total_time $N" | tee -a $log_file
 }
