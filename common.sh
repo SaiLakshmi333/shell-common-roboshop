@@ -10,7 +10,7 @@ N="\e[0m"
 SCRIPT_DIR=$PWD
 START_TIME=$(date +%s)
 
-
+mkdir -p $log_folder 
 echo "$(date "+%Y-%m-%d %H-%M-%s") | script started executing at : $(date)" | tee -a $log_file
 
 check_root(){
@@ -20,7 +20,7 @@ exit 1
 fi
 }
 
-mkdir -p $log_folder 
+
 validate(){
     if [ $1 -ne 0 ];then
     echo -e "$(date "+%Y-%m-%d %H-%M-%S")|$R $2 is failed $N" &>> $log_file
