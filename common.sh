@@ -30,9 +30,14 @@ validate $? "enable nodejs"
 
 dnf install nodejs -y &>>$log_file
 validate $? "installing nodejs" 
+
+npm install &>>$log_file
+validate $? "installing dependencies" 
+
 }
 
 app_setup(){
+    #creating system user
 id roboshop &>>$log_file
 if [ $? -ne 0 ];then
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $log_file
@@ -40,7 +45,7 @@ validate $? "creating system user"
 else
 echo -e "roboshop user already exist $Y skipping $n" &>> $log_file 
 fi
-
+#downloading the app
 mkdir -p /app &>>$log_file
 validate $? "creating directory" 
 
@@ -57,10 +62,7 @@ unzip /tmp/catalogue.zip &>> $log_file
 validate $? "unzip $app_name code" 
 }
 
-nodejs_setup(){
-npm install &>>$log_file
-validate $? "installing dependencies" 
-
+systemd_setup(){
 cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>> $log_file
 validate $? "copy $app_name service" 
 
@@ -72,6 +74,12 @@ validate $? "enabled $app_name"
 
 systemctl start $app_name &>> $log_file
 validate $? "started $app_name" 
+
+}
+
+app_restart(){
+    systemctl restart $app_name
+validate $? "Restarting $app_name"
 }
 
 validate(){
@@ -89,7 +97,3 @@ total_time(){
     echo -e "Script executed  in : $G $total_time $N" | tee -a $log_file
 }
 
-systemd_setup(){
-systemctl restart $app_name
-validate $? "Restarting $app_name"
-}

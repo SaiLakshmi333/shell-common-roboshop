@@ -1,7 +1,10 @@
 source ./common.sh
 app_name=catalogue
-nodejs_setup
+check_root
 app_setup
+nodejs_setup
+systemd_setup
+
 
 
 #loading data into Mongodb
@@ -20,6 +23,8 @@ else
     echo -e "$(date "+%Y-%m-%d %H-%M-%S")|Products already loaded ... $Y SKIPPING $N"
 
 fi
+app_restart
+total_time
 
 
 
