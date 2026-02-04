@@ -11,6 +11,7 @@ SCRIPT_DIR=$PWD
 START_TIME=$(date +%s)
 mongodb_host=mongodb.devopswithsai.online
 redis_host=redis.devopswithsai.online
+mysql_host=mysql.devopswithsai.online
 
 
 mkdir -p $log_folder 
@@ -62,6 +63,16 @@ validate $? "removing the existing code"
 
 unzip /tmp/$app_name.zip &>> $log_file
 validate $? "unzip $app_name code" 
+}
+
+java_setup(){
+dnf install maven -y
+validate $? "installing maven" &>> $log_file  
+
+cd /app &>> $log_file
+mvn clean package &>> $log_file
+mv target/$app_name-1.0.jar $app_name.jar &>> $log_file
+validate $? "clean" 
 }
 
 systemd_setup(){
