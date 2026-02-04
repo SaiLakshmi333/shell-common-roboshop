@@ -10,6 +10,8 @@ N="\e[0m"
 SCRIPT_DIR=$PWD
 START_TIME=$(date +%s)
 mongodb_host=mongodb.devopswithsai.online
+redis_host=redis.devopswithsai.online
+
 
 mkdir -p $log_folder 
 echo "$(date "+%Y-%m-%d %H-%M-%s") | script started executing at : $(date)" | tee -a $log_file
