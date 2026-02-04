@@ -86,6 +86,15 @@ validate $? "install pip3"
 
 }
 
+golang_setup(){
+    dnf install golang -y &>>$log_file
+validate $? "installing golang"
+}
+
+nginx_setup(){
+    
+}
+
 systemd_setup(){
 cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>> $log_file
 validate $? "copy $app_name service" 
