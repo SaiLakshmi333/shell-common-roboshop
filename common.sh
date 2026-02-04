@@ -51,7 +51,7 @@ fi
 mkdir -p /app &>>$log_file
 validate $? "creating directory" 
 
-curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>> $log_file
+curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip  &>> $log_file
 validate $? "downloading $app_name code" 
 
 cd /app &>>$log_file
@@ -60,7 +60,7 @@ validate $? "moving app directory"
 rm -rf /app/* &>>$log_file
 validate $? "removing the existing code" 
 
-unzip /tmp/catalogue.zip &>> $log_file
+unzip /tmp/$app_name.zip &>> $log_file
 validate $? "unzip $app_name code" 
 }
 
